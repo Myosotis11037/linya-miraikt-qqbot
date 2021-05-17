@@ -32,5 +32,7 @@ data class DatabaseConfig(
     @Comment("SQL连接的附加参数，记得以问号开头")
     val AdditionalParameters: String = "",
     @Comment("最大连接数，也许是连接池的大小？？？")
-    var maximumPoolSize: Int? = 10
+    var maximumPoolSize: Int? = 10,
+    @Comment("bilibiliCookie")
+    val biliCookie: String = ""
 )

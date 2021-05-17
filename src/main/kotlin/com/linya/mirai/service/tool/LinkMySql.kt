@@ -87,7 +87,6 @@ fun getGroupAuthority(id: Long): Boolean {
         .where { Groups.id eq id }
         .forEach { row -> result = row[Groups.liveStatus] }
 
-    if(result == null) return false
-    else return true
+    return result != null
 
 }

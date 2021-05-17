@@ -66,8 +66,7 @@ fun touhouLiveEntrance(){
                     when(liveStatus){
                         1 -> group.sendMessage("直播间现在是开启状态，请不要重复开启直播间！")
                         else -> {
-                            val startStatus = startLive()
-                            when(startStatus){
+                            when(changeLiveStatus(true)){
                                 true -> group.sendMessage("直播间开启成功")
                                 else -> group.sendMessage("直播间开启失败，可能是cookie错误")
                             }
@@ -86,8 +85,7 @@ fun touhouLiveEntrance(){
                     when(liveStatus){
                         0 -> group.sendMessage("直播间现在是关闭状态，请不要重复关闭直播间！")
                         else -> {
-                            val startStatus = startLive()
-                            when(startStatus){
+                            when(changeLiveStatus(false)){
                                 true -> group.sendMessage("直播间关闭成功")
                                 else -> group.sendMessage("直播间关闭失败，可能是cookie错误")
                             }
@@ -103,8 +101,7 @@ fun touhouLiveEntrance(){
                 val newLiveName = message.contentToString().replace("修改直播标题 ", "")
                 val liveUsers = getUserAuthority(sender.id)
                 if(liveUsers!!) {
-                    val nameStatus = changeLiveName(newLiveName)
-                    when(nameStatus){
+                    when(changeLiveName(newLiveName)){
                         true -> group.sendMessage("直播间标题修改为：${newLiveName}")
                         else -> group.sendMessage("直播间标题修改失败，可能是cookie错误")
                     }

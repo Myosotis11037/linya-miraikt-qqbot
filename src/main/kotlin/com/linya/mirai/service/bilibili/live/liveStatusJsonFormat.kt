@@ -3,7 +3,7 @@ package com.linya.mirai.service.bilibili.live
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class touhouLiveJson(
+data class TouhouLiveJson(
     val code: Int,
     val `data`: Data,
     val message: String,
@@ -79,12 +79,10 @@ data class Pendant(
 )
 
 @Serializable
-class SysNotice(
-)
+class SysNotice
 
 @Serializable
-class Theme(
-)
+class Theme
 
 @Serializable
 data class UserHonourInfo(
