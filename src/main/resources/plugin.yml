@@ -1,0 +1,6 @@
+name: "HoraisanKaguya"
+author: "linya"
+version: "0.0.1"
+main: "com.linya.plugin"
+info: "My kt plugin!"
+depends: []
