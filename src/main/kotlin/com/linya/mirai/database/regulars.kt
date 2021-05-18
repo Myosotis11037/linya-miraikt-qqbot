@@ -14,3 +14,7 @@ class Bilibili{
     //东方视频周榜
     val touhouFormat = "(?<=\"list\":\\[).*?(?<=]).".toRegex()
 }
+
+class netCloudMusic{
+    val songCover = "(?<=\"images\": \\[\").*?(?<=]).".toRegex()
+}

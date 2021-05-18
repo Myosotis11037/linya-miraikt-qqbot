@@ -5,6 +5,7 @@ import com.linya.mirai.service.bilibili.live.touhouLiveEntrance
 import com.linya.mirai.service.bilibili.touhou.touhouEntrance
 import com.linya.mirai.service.bilibili.video.b23ShortLinkEntrance
 import com.linya.mirai.service.bilibili.video.bilibiliVideoEntrance
+import com.linya.mirai.service.netcloud.musicEntrance
 import com.linya.mirai.service.setu.eroEntrance
 import com.linya.mirai.service.someThingEntrance
 import com.linya.mirai.service.tieba.tiebaSignEntrance
@@ -41,6 +42,7 @@ object PluginMain : KotlinPlugin(
         touhouEntrance()
         touhouLiveEntrance()
         tiebaSignEntrance()
+        musicEntrance()
 
     }
 }

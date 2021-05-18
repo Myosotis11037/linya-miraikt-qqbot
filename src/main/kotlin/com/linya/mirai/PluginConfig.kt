@@ -34,5 +34,11 @@ data class DatabaseConfig(
     @Comment("最大连接数，也许是连接池的大小？？？")
     var maximumPoolSize: Int? = 10,
     @Comment("bilibiliCookie")
-    val biliCookie: String = ""
+    val biliCookie: String = "",
+    @Comment("bilibiliToken")
+    val biliToken: String = "",
+    @Comment("百度贴吧的登录cookie")
+    val tiebaCookie: String = "",
+    @Comment("网易云音乐搜索功能需要的cookie")
+    val netcloudCookie: String = ""
 )
