@@ -37,6 +37,6 @@ fun touhouEntrance() {
 }
 
 suspend fun touhouDataGet(): String {
-    return HttpClient().use { client -> client.get("https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=166&sort_type=hot&page_size=10") }
+    return HttpClient().use { client -> client.get("https://api.bilibili.com/x/web-interface/web/channel/multiple/list?channel_id=166&sort_type=hot&page_size=1") }
 }
 

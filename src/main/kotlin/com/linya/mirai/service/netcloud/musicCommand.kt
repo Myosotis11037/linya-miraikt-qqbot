@@ -36,7 +36,7 @@ fun musicEntrance() {
                             else -> '\t'
                         }
                 }
-                val mention = "  有多首相关歌曲，请在30秒内输入数字【1-10】来选择你要播放的歌曲~\n" + searchResult
+                val mention = "  有多首相关歌曲，请在30秒内输入数字【1-10】来选择你要播放的歌曲~\n$searchResult"
                 group.sendMessage(buildMessageChain {
                     +At(sender.id)
                     +PlainText(mention)
