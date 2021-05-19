@@ -78,5 +78,7 @@ fun someThingEntrance() {
             bot.getFriend(5980403.toLong())!!.sendMessage(chain)
         }
 
+
+
     }
 }

@@ -8,7 +8,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import net.mamoe.mirai.contact.Member
 import net.mamoe.mirai.contact.asFriend
-import net.mamoe.mirai.contact.asStranger
 
 val format = Json { ignoreUnknownKeys = true }
 
@@ -55,8 +54,8 @@ suspend fun changeLiveStatus(mode: Boolean, sender: Member): Boolean {
                 user.sendMessage(code)
             }
             else -> {
-                val user = sender.asStranger()
-                user.sendMessage(addr)
+                val user = sender
+                sender.sendMessage(addr)
                 user.sendMessage(code)
             }
         }

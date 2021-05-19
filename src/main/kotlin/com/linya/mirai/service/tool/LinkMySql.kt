@@ -38,7 +38,7 @@ fun getUserAuthority(id: Long): Boolean? {
         .from(Users)
         .select()
         .where { (Users.id eq id) }.forEach { row ->
-            data = row[Users.live_superadmin]
+            data = row[Users.live_admin]
         }
     println(data)
     return data

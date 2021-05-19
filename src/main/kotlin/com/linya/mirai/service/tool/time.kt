@@ -4,13 +4,19 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-fun timeEntrance(){
-    Timer().schedule(object:TimerTask(){
-        override fun run(){
-            GlobalScope.launch{
+class myTimerTask() : TimerTask(){
+    override fun run(){
+        GlobalScope.launch{
 
-            }
         }
-    },Date(),60000)
+    }
+}
+
+val date = Date()
+
+fun timeEntrance(){
+    val task = myTimerTask()
+    Timer().schedule(task,Date(),)
+
 
 }
