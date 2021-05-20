@@ -32,8 +32,8 @@ fun eroEntrance() {
 
         }
 
-        finding("(里涩图|里色图)".toRegex()){
-            if(group.id != 182721157.toLong() && group.id != 451195420.toLong()) {
+        finding("(里涩图|里色图)".toRegex()) {
+            if (group.id != 182721157.toLong() && group.id != 451195420.toLong()) {
                 val senderOfThisEvent = if (sender.id == 5980403.toLong()) "凛夜哥哥" else "主人"
                 group.sendMessage(buildMessageChain {
                     +At(sender.id)
@@ -43,8 +43,8 @@ fun eroEntrance() {
                 subject.sendImage(downloadImage(downloadLoliconImage(0))!!)
             }
         }
-        case("来点r18"){
-            if(group.id != 182721157.toLong() && group.id != 451195420.toLong()) {
+        case("来点r18") {
+            if (group.id != 182721157.toLong() && group.id != 451195420.toLong()) {
                 val senderOfThisEvent = if (sender.id == 5980403.toLong()) "凛夜哥哥" else "主人"
                 group.sendMessage(buildMessageChain {
                     +At(sender.id)
@@ -52,6 +52,28 @@ fun eroEntrance() {
                     +Face(111)
                 })
                 subject.sendImage(downloadImage(downloadLoliconImage(1))!!)
+            }
+        }
+
+        finding("(指定涩图 |指定色图 |指定r18涩图 |指定r18色图 )".toRegex()) {
+            if (group.id != 182721157.toLong() && group.id != 451195420.toLong()) {
+                val r18 = if (message.contentToString().contains("r18"))  1 else 0
+                val senderOfThisEvent = if (sender.id == 5980403.toLong()) "凛夜哥哥" else "主人"
+                val key = message.contentToString().replace("指定涩图 ", "").replace("指定色图 ", "").replace("指定r18色图 ","").replace("指定r18涩图 ","")
+                group.sendMessage(buildMessageChain {
+                    +At(sender.id)
+                    +PlainText(" 正在搜索${senderOfThisEvent}所需要的\"${key}\"分类下的图片，请稍安勿躁")
+                    +Face(111)
+                })
+                val url = downloadLoliconImage(r18, key)
+                if (url == "error") {
+                    group.sendMessage(buildMessageChain {
+                        +PlainText(" 没有找到此分类的涩图！")
+                        +Face(111)
+                    })
+                } else {
+                    subject.sendImage(downloadImage(url)!!)
+                }
             }
         }
 
