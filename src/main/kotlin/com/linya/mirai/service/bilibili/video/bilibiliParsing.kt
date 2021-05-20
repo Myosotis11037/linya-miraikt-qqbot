@@ -18,42 +18,50 @@ val format = Json { ignoreUnknownKeys = true }
 fun bilibiliVideoEntrance(){
     GlobalEventChannel.subscribeGroupMessages(){
         always{
-            //用于格式化Json并发送
-            suspend fun uJsonVideo(uJsonVideo: String) {
-                /**
-                 * 如果pJson中含有data字段时不会抛出[SerializationException]，不含有则反之
-                 * 当未抛出[SerializationException]异常时，正常执行，使用[VideoDataJson]格式化并发送
-                 * 当抛出[SerializationException]异常时，被catch抓住并使用[AbnormalVideoDataJson]格式化并发送
-                 */
-                try {
-                    val pJson = format.decodeFromString<VideoDataJson>(uJsonVideo)
-                    group.sendMessage(
-                        downloadImage(pJson.data.pic)!!
-                            .uploadAsImage(group, "jpg")
-                            .plus(parsingVideoDataString(pJson))
-                    )
-                } catch (e: SerializationException) {
-                    val pJson = format.decodeFromString<AbnormalVideoDataJson>(uJsonVideo)
-                    when (pJson.code) {
-                        -404  -> group.sendMessage("喵, 视频不存在哦")
-                        62002 -> group.sendMessage("视频不可见惹")
+            if(sender.id != 2157510360 && sender.id != 1405703587.toLong()) {
+                //用于格式化Json并发送
+                suspend fun uJsonVideo(uJsonVideo: String) {
+                    /**
+                     * 如果pJson中含有data字段时不会抛出[SerializationException]，不含有则反之
+                     * 当未抛出[SerializationException]异常时，正常执行，使用[VideoDataJson]格式化并发送
+                     * 当抛出[SerializationException]异常时，被catch抓住并使用[AbnormalVideoDataJson]格式化并发送
+                     */
+                    try {
+                        val pJson = format.decodeFromString<VideoDataJson>(uJsonVideo)
+                        group.sendMessage(
+                            downloadImage(pJson.data.pic)!!
+                                .uploadAsImage(group, "jpg")
+                                .plus(parsingVideoDataString(pJson))
+                        )
+                    } catch (e: SerializationException) {
+                        val pJson = format.decodeFromString<AbnormalVideoDataJson>(uJsonVideo)
+                        when (pJson.code) {
+                            -404 -> group.sendMessage("喵, 视频不存在哦")
+                            62002 -> group.sendMessage("视频不可见惹")
+                        }
+                    }
+                }
+
+
+                //检测消息中AV/BV
+                when {
+                    regular.bvFind.containsMatchIn(message.contentToString()) -> {
+                        uJsonVideo(videoDataGet(regular.bvFind.find(it)!!.value, "bvid"))
+                    }
+
+                    regular.avFind.containsMatchIn(message.contentToString()) -> {
+                        uJsonVideo(
+                            videoDataGet(
+                                regular.avFind.find(message.contentToString())!!.value.replace(
+                                    Regex("(av|AV)"),
+                                    ""
+                                ), "aid"
+                            )
+                        )
                     }
                 }
             }
-
-
-            //检测消息中AV/BV
-            when {
-                regular.bvFind.containsMatchIn(message.contentToString()) -> {
-                    uJsonVideo(videoDataGet(regular.bvFind.find(it)!!.value,"bvid"))
-                }
-
-                regular.avFind.containsMatchIn(message.contentToString()) -> {
-                    uJsonVideo(videoDataGet(regular.avFind.find(message.contentToString())!!.value.replace(Regex("(av|AV)"),""),"aid"))
-                }
-            }
         }
-
     }
 }
 

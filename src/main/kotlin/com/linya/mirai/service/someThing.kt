@@ -1,5 +1,7 @@
 package com.linya.mirai.service
 
+import com.linya.mirai.service.tool.helpDoc
+import net.mamoe.mirai.contact.getMember
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.subscribeGroupMessages
 import net.mamoe.mirai.message.code.MiraiCode
@@ -10,16 +12,23 @@ import net.mamoe.mirai.message.data.buildMessageChain
 
 fun someThingEntrance() {
     GlobalEventChannel.subscribeGroupMessages() {
+
+        always {
+            if ((sender.id == 5980403.toLong() && message.contentToString() == "妹妹在吗")||sender.id == 1259176247.toLong()) {
+                val member = group.getMember(sender.id)
+                member!!.nudge().sendTo(group)
+            }
+        }
 //        机器人的帮助文档
         case("help") {
             group.sendMessage(
-                "目前已经公开的功能有：\n\n" +
-                    "①打招呼功能，输入 hi 或者 晚安 ，说不定可以得到妹妹的回应哦~\n\n" +
-                    "②解析bv号和av号的功能，并且能够解析以任何形式（电脑端、Android客户端、ios客户端）分享的b站视频，能够显示视频的详细信息~\n\n" +
-                    "③随机提供涩图的功能，在部分群关闭了部分功能，具体使用方法可以输入‘setu --help’来查看\n\n" +
-                    "④整点报时功能~\n\n" +
-                    "⑤提供b站车万区周榜功能，输入’车万周榜‘即可查看半小时内b站车万区的前十榜单~\n\n" +
-                    "⑥点歌功能。输入’点歌 xxx‘就可以查找到你喜欢的歌曲哦~\n\n" +
+                "目前已经公开的功能有：\n" +
+                    "①打招呼功能，输入 hi 或者 晚安 ，说不定可以得到妹妹的回应哦~\n" +
+                    "②解析bv号和av号的功能，并且能够解析以任何形式（电脑端、Android客户端、ios客户端）分享的b站视频，能够显示视频的详细信息~\n" +
+                    "③随机提供涩图的功能，在部分群关闭了部分功能，具体使用方法可以输入‘setu --help’来查看\n" +
+                    "④整点报时功能~\n" +
+                    "⑤提供b站车万区周榜功能，输入’车万周榜‘即可查看半小时内b站车万区的前十榜单~\n" +
+                    "⑥点歌功能。输入’点歌 xxx‘就可以查找到你喜欢的歌曲哦~\n" +
                     "⑦开启红群直播间功能，只有红群和tfcc直播群两个群拥有权限，可以通过输入'live --help'查看直播相关模块的使用方法~" +
                     "凛夜sama赛高！（不要忘了所有的功能都是凛夜亲手敲的代码哦，如果遇到机器人出现bug请立即在群里at我，当收到at消息时我会马上通知哥哥，如果我还没有出现那说明凛夜哥哥真的不在（沮丧））"
             )
@@ -64,6 +73,13 @@ fun someThingEntrance() {
             })
         }
 
+        case("live --help"){
+            group.sendMessage(helpDoc("live --help"))
+        }
+        case("setu --help"){
+            group.sendMessage(helpDoc("setu --help"))
+        }
+
         at(5980403.toLong()).invoke {
             var chain = buildMessageChain {
                 +PlainText("${sender.nick}(${sender.id})在${group.name}(${group.id})中对主人说：\n")
@@ -77,8 +93,6 @@ fun someThingEntrance() {
             )
             bot.getFriend(5980403.toLong())!!.sendMessage(chain)
         }
-
-
 
     }
 }
