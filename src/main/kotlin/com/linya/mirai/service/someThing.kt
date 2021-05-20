@@ -14,7 +14,7 @@ fun someThingEntrance() {
     GlobalEventChannel.subscribeGroupMessages() {
 
         always {
-            if ((sender.id == 5980403.toLong() && message.contentToString() == "รรรริฺย๐")||sender.id == 1259176247.toLong()) {
+            if ((sender.id == 5980403.toLong() && (message.contentToString() == "รรรริฺย๐" || message.contentToString() == "รรรริูผ๛"))||sender.id == 1259176247.toLong()) {
                 val member = group.getMember(sender.id)
                 member!!.nudge().sendTo(group)
             }
