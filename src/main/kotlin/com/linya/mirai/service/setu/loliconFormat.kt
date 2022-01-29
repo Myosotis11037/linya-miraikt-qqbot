@@ -3,13 +3,11 @@ package com.linya.mirai.service.setu
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class loliconJson(
+data class LoliconJson(
     val code: Int,
     val count: Int,
     val `data`: List<Data>,
     val msg: String,
-    val quota: Int,
-    val quota_min_ttl: Int
 )
 
 @Serializable

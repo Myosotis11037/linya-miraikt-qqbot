@@ -17,7 +17,7 @@ fun b23ShortLinkEntrance() {
                 val pJson = format.decodeFromString<VideoDataJson>(uJsonVideo)
                 group.sendMessage(
                     downloadImage(pJson.data.pic)!!
-                        .uploadAsImage(group, "jpg")
+                        .uploadAsImage(group)
                         .plus(parsingVideoDataString(pJson))
                 )
             }

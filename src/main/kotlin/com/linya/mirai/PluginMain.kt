@@ -1,7 +1,5 @@
 package com.linya.mirai
 
-import com.linya.mirai.database.Database.connectEntrance
-import com.linya.mirai.service.bilibili.live.touhouLiveEntrance
 import com.linya.mirai.service.bilibili.touhou.touhouEntrance
 import com.linya.mirai.service.bilibili.video.b23ShortLinkEntrance
 import com.linya.mirai.service.bilibili.video.bilibiliVideoEntrance
@@ -30,8 +28,6 @@ object PluginMain : KotlinPlugin(
     override fun onEnable() {
 
         PluginConfig.reload()
-        connectEntrance()
-
 
         logger.info { "插件加载完成! 版本：$version Java版本:${System.getProperty("java.version")}" }
 
@@ -40,7 +36,7 @@ object PluginMain : KotlinPlugin(
         b23ShortLinkEntrance()
         someThingEntrance()
         touhouEntrance()
-        touhouLiveEntrance()
+//      touhouLiveEntrance()
         tiebaSignEntrance()
         musicEntrance()
 

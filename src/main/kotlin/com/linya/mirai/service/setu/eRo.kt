@@ -40,7 +40,15 @@ fun eroEntrance() {
                     +PlainText(" 正在获取${senderOfThisEvent}所需要的里涩图，请稍安勿躁")
                     +Face(111)
                 })
-                subject.sendImage(downloadImage(downloadLoliconImage(0))!!)
+                val url = downloadLoliconImage(group = group)
+                if (url == "error") {
+                    group.sendMessage(buildMessageChain {
+                        +PlainText(" 没有找到此分类的涩图！")
+                        +Face(111)
+                    })
+                }else if(url != "exceed"){
+                    subject.sendImage(downloadImage(url)!!)
+                }
             }
         }
         case("来点r18") {
@@ -51,7 +59,15 @@ fun eroEntrance() {
                     +PlainText(" 正在获取${senderOfThisEvent}所需要的r18图片（害怕），请稍安勿躁")
                     +Face(111)
                 })
-                subject.sendImage(downloadImage(downloadLoliconImage(1))!!)
+                val url = downloadLoliconImage(1,group = group)
+                if (url == "error") {
+                    group.sendMessage(buildMessageChain {
+                        +PlainText(" 没有找到此分类的涩图！")
+                        +Face(111)
+                    })
+                }else if(url != "exceed"){
+                    subject.sendImage(downloadImage(url)!!)
+                }
             }
         }
 
@@ -65,13 +81,13 @@ fun eroEntrance() {
                     +PlainText(" 正在搜索${senderOfThisEvent}所需要的\"${key}\"分类下的图片，请稍安勿躁")
                     +Face(111)
                 })
-                val url = downloadLoliconImage(r18, key)
+                val url = downloadLoliconImage(r18, key, group)
                 if (url == "error") {
                     group.sendMessage(buildMessageChain {
                         +PlainText(" 没有找到此分类的涩图！")
                         +Face(111)
                     })
-                } else {
+                }else if(url != "exceed"){
                     subject.sendImage(downloadImage(url)!!)
                 }
             }

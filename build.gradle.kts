@@ -1,28 +1,39 @@
 plugins {
-    kotlin("jvm") version "1.4.30-M1"
-    kotlin("plugin.serialization") version "1.4.0"
-    id("net.mamoe.mirai-console") version "2.5.0"
+    val kotlinVersion = "1.5.10"
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.serialization") version kotlinVersion
+    id("net.mamoe.mirai-console") version "2.8.0"
 }
 
 group = "com.linya"
-version = "0.1.0"
+version = "0.1.5"
 
 val ktorm = "3.3.0"
 val ktorVersion = "1.5.1"
-val yamlKtVersion = "0.7.5"
+val yamlKtVersion = "0.10.2"
 val httpcomponents = "4.5.4"
 
 
 repositories {
-    //国内镜像源
-    maven { url = uri("https://mirrors.huaweicloud.com/repository/maven") }
-    maven { url = uri("https://maven.aliyun.com/nexus/content/repositories/jcenter") }
-    maven { url = uri("https://dl.bintray.com/kotlin/kotlin-eap") }
     mavenLocal()
+
+    // 阿里云云效仓库：https://maven.aliyun.com/mvn/guide
+    maven("https://maven.aliyun.com/repository/public")
+    maven("https://maven.aliyun.com/repository/google")
+    maven("https://maven.aliyun.com/repository/gradle-plugin")
+    // 华为开源镜像：https://mirrors.huaweicloud.com
+    maven("https://repo.huaweicloud.com/repository/maven")
+    // JitPack 远程仓库：https://jitpack.io
+    maven("https://jitpack.io")
+
+    // MavenCentral 远程仓库：https://mvnrepository.com
     mavenCentral()
-    jcenter()
+    gradlePluginPortal()
+    google()
 }
 dependencies {
+    compileOnly("net.mamoe.yamlkt:yamlkt-jvm:$yamlKtVersion")
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30-M1")
 
     implementation("mysql:mysql-connector-java:8.0.19")
@@ -46,8 +57,4 @@ dependencies {
 
     implementation("mysql:mysql-connector-java:8.0.19")
     implementation("com.zaxxer:HikariCP:4.0.2")
-    implementation("net.mamoe.yamlkt:yamlkt-jvm:$yamlKtVersion")
-
-
-
 }

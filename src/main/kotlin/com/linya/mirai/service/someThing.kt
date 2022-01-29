@@ -5,20 +5,18 @@ import net.mamoe.mirai.contact.getMember
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.subscribeGroupMessages
 import net.mamoe.mirai.message.code.MiraiCode
-import net.mamoe.mirai.message.data.At
-import net.mamoe.mirai.message.data.Face
-import net.mamoe.mirai.message.data.PlainText
-import net.mamoe.mirai.message.data.buildMessageChain
+import net.mamoe.mirai.message.data.*
 
 fun someThingEntrance() {
     GlobalEventChannel.subscribeGroupMessages() {
 
         always {
-            if ((sender.id == 5980403.toLong() && (message.contentToString() == "妹妹在吗" || message.contentToString() == "妹妹再见"))||sender.id == 1259176247.toLong()) {
+            if ((sender.id == 5980403.toLong() && (message.contentToString() == "妹妹在吗" || message.contentToString() == "妹妹再见"))) {
                 val member = group.getMember(sender.id)
                 member!!.nudge().sendTo(group)
             }
         }
+
 //        机器人的帮助文档
         case("help") {
             group.sendMessage(
@@ -33,6 +31,13 @@ fun someThingEntrance() {
                     "凛夜sama赛高！（不要忘了所有的功能都是凛夜亲手敲的代码哦，如果遇到机器人出现bug请立即在群里at我，当收到at消息时我会马上通知哥哥，如果我还没有出现那说明凛夜哥哥真的不在（沮丧））"
             )
         }
+
+        case("宝贝球"){
+            group.sendMessage(PokeMessage.BaoBeiQiu)
+        }
+
+
+
 //打招呼功能
         case("hi") {
 //先构建消息链
@@ -67,10 +72,17 @@ fun someThingEntrance() {
         }
 
         atBot {
-            group.sendMessage(buildMessageChain {
-                +At(sender.id)
-                +Face(111)
-            })
+            if(sender.id == 5980403.toLong()){
+                if(message.contentToString() == "撤回"){
+                    return@atBot
+                }
+            }
+            else {
+                group.sendMessage(buildMessageChain {
+                    +At(sender.id)
+                    +Face(111)
+                })
+            }
         }
 
         case("live --help"){
