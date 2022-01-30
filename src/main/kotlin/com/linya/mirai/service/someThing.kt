@@ -5,18 +5,20 @@ import net.mamoe.mirai.contact.getMember
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.subscribeGroupMessages
 import net.mamoe.mirai.message.code.MiraiCode
-import net.mamoe.mirai.message.data.*
+import net.mamoe.mirai.message.data.At
+import net.mamoe.mirai.message.data.Face
+import net.mamoe.mirai.message.data.PlainText
+import net.mamoe.mirai.message.data.buildMessageChain
 
 fun someThingEntrance() {
     GlobalEventChannel.subscribeGroupMessages() {
 
         always {
-            if ((sender.id == 5980403.toLong() && (message.contentToString() == "妹妹在吗" || message.contentToString() == "妹妹再见"))) {
+            if ((sender.id == 5980403.toLong() && message.contentToString() == "妹妹在吗")||sender.id == 1259176247.toLong()) {
                 val member = group.getMember(sender.id)
                 member!!.nudge().sendTo(group)
             }
         }
-
 //        机器人的帮助文档
         case("help") {
             group.sendMessage(
@@ -27,16 +29,10 @@ fun someThingEntrance() {
                     "④整点报时功能~\n" +
                     "⑤提供b站车万区周榜功能，输入’车万周榜‘即可查看半小时内b站车万区的前十榜单~\n" +
                     "⑥点歌功能。输入’点歌 xxx‘就可以查找到你喜欢的歌曲哦~\n" +
+                    "⑦开启红群直播间功能，只有红群和tfcc直播群两个群拥有权限，可以通过输入'live --help'查看直播相关模块的使用方法~" +
                     "凛夜sama赛高！（不要忘了所有的功能都是凛夜亲手敲的代码哦，如果遇到机器人出现bug请立即在群里at我，当收到at消息时我会马上通知哥哥，如果我还没有出现那说明凛夜哥哥真的不在（沮丧））"
             )
         }
-
-        case("宝贝球"){
-            group.sendMessage(PokeMessage.BaoBeiQiu)
-        }
-
-
-
 //打招呼功能
         case("hi") {
 //先构建消息链
@@ -71,17 +67,10 @@ fun someThingEntrance() {
         }
 
         atBot {
-            if(sender.id == 5980403.toLong()){
-                if(message.contentToString() == "撤回"){
-                    return@atBot
-                }
-            }
-            else {
-                group.sendMessage(buildMessageChain {
-                    +At(sender.id)
-                    +Face(111)
-                })
-            }
+            group.sendMessage(buildMessageChain {
+                +At(sender.id)
+                +Face(111)
+            })
         }
 
         case("live --help"){
