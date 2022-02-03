@@ -31,9 +31,9 @@ suspend fun tiebaSignIn(sender: Member, group : Group){
     val resp = client.post<String>{
         url(tiebaSignUrl)
         header("cookie", PluginConfig.myDataBase.tiebaCookie)
-        parameter("ie","utf-8")
-        parameter("tbs","dbcb633d0a5796b81612963177")
     }
+
+    println(resp)
     val tiebaSign = format.decodeFromString<tiebaSignJson>(resp)
     val signedForumAmount = tiebaSign.data.signedForumAmount
     val unsignedForumAmount = tiebaSign.data.unsignedForumAmount
@@ -45,5 +45,6 @@ suspend fun tiebaSignIn(sender: Member, group : Group){
         "个\n" +
         "签到失败的贴吧为" +
         unsignedForumAmount + "个"
+
     group.sendMessage(message.plus(signReport))
 }
