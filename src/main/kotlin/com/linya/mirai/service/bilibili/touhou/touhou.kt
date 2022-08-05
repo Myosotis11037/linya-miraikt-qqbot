@@ -13,21 +13,21 @@ val regular = Bilibili()
 
 fun touhouEntrance() {
     GlobalEventChannel.subscribeGroupMessages {
-        finding("(³µÍòÖÜ°ñ|¶«·½ÖÜ°ñ)".toRegex()) {
+        finding("(è½¦ä¸‡å‘¨æ¦œ|ä¸œæ–¹å‘¨æ¦œ)".toRegex()) {
             val touhouData = touhouDataGet()
             val touhouJson = regular.touhouFormat.find(touhouData)!!
             val touhouResults = format.decodeFromString<TouhouDataJson>(touhouJson.value)
-            var sstr = "³µÍòÇøÖÜ°ñ£¨Ã¿30·ÖÖÓ¸üĞÂÒ»´Î£©£º\n"
-            val nums: CharArray = charArrayOf('Ò»', '¶ş', 'Èı', 'ËÄ', 'Îå', 'Áù', 'Æß', '°Ë', '¾Å', 'Ê®')
+            var sstr = "è½¦ä¸‡åŒºå‘¨æ¦œï¼ˆæ¯30åˆ†é’Ÿæ›´æ–°ä¸€æ¬¡ï¼‰ï¼š\n"
+            val nums: CharArray = charArrayOf('ä¸€', 'äºŒ', 'ä¸‰', 'å››', 'äº”', 'å…­', 'ä¸ƒ', 'å…«', 'ä¹', 'å')
 
             for (i in touhouResults.items.indices) {
-                sstr = sstr + "µÚ" + nums[i] + "Ãû£º" + touhouResults.items[i].name + "\n"
-                sstr = sstr + "upÖ÷£º" + touhouResults.items[i].author_name + "\n"
-                sstr = sstr + "bvºÅ£º" + touhouResults.items[i].bvid + "\n"
-                sstr = sstr + "ÊÓÆµÊ±³¤£º" + touhouResults.items[i].duration + "\n"
-                sstr = sstr + "µãÔŞÊı£º" + touhouResults.items[i].like_count + "\n"
-                sstr = sstr + "²¥·ÅÁ¿£º" + touhouResults.items[i].view_count + "\n"
-                sstr = sstr + "ÊÓÆµÁ´½Ó£º" + "https://www.bilibili.com/video/" + touhouResults.items[i].bvid
+                sstr = sstr + "ç¬¬" + nums[i] + "åï¼š" + touhouResults.items[i].name + "\n"
+                sstr = sstr + "upä¸»ï¼š" + touhouResults.items[i].author_name + "\n"
+                sstr = sstr + "bvå·ï¼š" + touhouResults.items[i].bvid + "\n"
+                sstr = sstr + "è§†é¢‘æ—¶é•¿ï¼š" + touhouResults.items[i].duration + "\n"
+                sstr = sstr + "ç‚¹èµæ•°ï¼š" + touhouResults.items[i].like_count + "\n"
+                sstr = sstr + "æ’­æ”¾é‡ï¼š" + touhouResults.items[i].view_count + "\n"
+                sstr = sstr + "è§†é¢‘é“¾æ¥ï¼š" + "https://www.bilibili.com/video/" + touhouResults.items[i].bvid
                 sstr += if(i < 9) "\n\n" else "\n"
             }
 
